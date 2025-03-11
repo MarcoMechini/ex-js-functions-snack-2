@@ -113,3 +113,17 @@ function sequenzaOperazioni(arr, intervallo) {
 }
 
 // Snack 10
+
+function creaThrottler(callback, limite) {
+    let ultimaEsecuzione = 0;
+
+    return function (...args) {
+
+        const ora = Date.now();
+        if (ora - ultimaEsecuzione >= limite) {
+            ultimaEsecuzione = ora;
+            callback(...args)
+        }
+
+    }
+}
