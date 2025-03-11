@@ -49,34 +49,34 @@ function stampaOgniSecondo(messaggio) {
 
 // stampaOgniSecondo('Sono timer!')
 
-// Snack 6
+// Snack 6 CORRETTO
 
-function creaContatoreAutomatico(n) {
-    let contatore = n;
+function creaContatoreAutomatico(intervallo) {
+    let contatore = 0;
     return function () {
         setInterval(() => {
             console.log(contatore);
             contatore++;
-        }, 1000)
+        }, intervallo)
     }
 }
 
-// creaContatoreAutomatico(2)()
+const contaSecondo = creaContatoreAutomatico(1000)
+// contaSecondo()
 
-// Snack 7 TO DO
+// Snack 7 TO DO CORRETTO
 
 function eseguiEFerma(messaggio, tAvvio, tStop) {
 
-    let tempo = 0;
-    let interval = setInterval(() => {
+    let intervalId = setInterval(() => {
         console.log(messaggio);
-        tempo += tAvvio;
-        if ((tempo + tAvvio) > tStop) {
-            clearInterval(interval)
-        }
     }, tAvvio)
+
+    setTimeout(() => {
+        clearInterval(intervalId);
+    }, tStop)
 }
-// eseguiEFerma('Ciao timer', 1000, 9000)
+eseguiEFerma('Ciao timer', 1000, 9000)
 
 // Snack 8
 
@@ -96,7 +96,8 @@ function contoAllaRovescia(n) {
 
 // contoAllaRovescia(5)
 
-// Snack 9
+// Snack 9 CORRETTO
+
 sequenzaOperazioni([
     () => console.log('Operazione 1'),
     () => console.log('Operazione 2'),
@@ -104,16 +105,11 @@ sequenzaOperazioni([
 ], 1000)
 
 function sequenzaOperazioni(arr, intervallo) {
-    let counter = 0;
-    let interval = setInterval(() => {
-        if (arr.length <= counter) {
-            clearInterval(interval)
-        } else {
-            arr[counter]();
-            counter++
-        }
-
-    }, intervallo)
+    arr.forEach((element, index) => {
+        setTimeout(() => {
+            element();
+        }, intervallo * index)
+    });
 }
 
 // Snack 10
